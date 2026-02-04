@@ -69,7 +69,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Now",
-            "link": "shopify://collections/all",
+            "link": "shopify://collections/complete-packages",
             "open_in_new_tab": false,
             "style_class": "button-primary",
             "width": "fit-content",
@@ -288,7 +288,7 @@
       },
       "name": "t:names.featured_collection",
       "settings": {
-        "collection": "all",
+        "collection": "complete-packages",
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "max_products": 4,

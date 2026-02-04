@@ -93,9 +93,7 @@ shopify-horizon/
 | Question | Document |
 |----------|----------|
 | Migration overview | [MIGRATION_PLAN.md](MIGRATION_PLAN.md) |
-| Legacy theme colors/settings | [reference/legacy-dawn-theme/README.md](../reference/legacy-dawn-theme/README.md) |
-| Original homepage structure | [reference/legacy-dawn-theme/templates/index.json](../reference/legacy-dawn-theme/templates/index.json) |
-| Original theme settings | [reference/legacy-dawn-theme/config/settings_data.json](../reference/legacy-dawn-theme/config/settings_data.json) |
+| Designer image specs | [notes_to_designer.md](notes_to_designer.md) |
 
 ## Document Layers
 

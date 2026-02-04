@@ -173,6 +173,65 @@ Dani Kate Designs sells personalized "Customopoly" board games - custom Monopoly
 5. Enable sorting
 6. Evaluate quick-add (was disabled)
 
+## Pages & Navigation Structure
+
+### Existing Pages
+
+| Page | Handle | Purpose |
+|------|--------|---------|
+| About Us | `about-us` | Business intro - "I'm Dani! I'm a New York-based illustrator..." |
+| How it Works | `how-it-works` | Order process explanation |
+| Gallery of Games | `gallery-of-games` | Product gallery/showcase |
+| Corporate Orders | `corporate-orders` | B2B/corporate custom games |
+| Design Style Options | `design-style-options` | Available design variations |
+| Box Style | `box-style` | Box customization options |
+| Original Style Vs. New Style | `original-style-vs-new-style` | Style comparison |
+| Testimonials & Reviews | `testimonials-reviews` | Customer feedback |
+| FAQ | `faq` | Common questions |
+| Contact | `contact` | Contact form/info |
+| Inspiration | `inspiration` | Design ideas |
+| Image Gallery | `image-gallery` | Photo gallery |
+| Forms | `forms` | Custom order forms |
+
+### Suggested Main Navigation
+
+```
+Main Menu:
+├── Shop
+│   ├── Complete Packages (/collections/complete-packages)
+│   ├── Card Games (/collections/card-games)
+│   ├── Game Pieces (/collections/game-pieces)
+│   ├── Custom Boards (/collections/custom-boards)
+│   └── Custom Boxes (/collections/custom-boxes)
+├── How it Works (/pages/how-it-works)
+├── Gallery (/pages/gallery-of-games)
+├── About (/pages/about-us)
+├── Corporate (/pages/corporate-orders)
+└── Contact (/pages/contact)
+```
+
+### Footer Navigation
+
+```
+Footer Menu:
+├── FAQ (/pages/faq)
+├── Design Options (/pages/design-style-options)
+├── Testimonials (/pages/testimonials-reviews)
+├── Contact (/pages/contact)
+└── Privacy Policy (/policies/privacy-policy)
+```
+
+### Pages Requiring Migration
+
+| Page | Action | Notes |
+|------|--------|-------|
+| How it Works | Create page template | Already have section on homepage |
+| About Us | Standard page template | Simple content page |
+| FAQ | Accordion/collapsible template | Consider FAQ schema |
+| Contact | Contact form template | Include phone number |
+| Gallery pages | Image gallery template | May need custom sections |
+| Forms | Custom form pages | May need app integration |
+
 ## App Reinstallation
 
 These apps will need to be reinstalled and configured after theme migration:

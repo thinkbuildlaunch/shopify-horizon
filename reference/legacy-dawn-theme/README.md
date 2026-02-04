@@ -15,8 +15,36 @@
 - Facebook: [facebook.com/danikatesdesigns](https://facebook.com/danikatesdesigns)
 - Instagram: [instagram.com/danikatesdesigns](https://instagram.com/danikatesdesigns)
 
-### Key Collections
-- Complete Game Package (Standard) - Main product collection
+### Collections
+
+| Collection | Handle | Products | Notes |
+|------------|--------|----------|-------|
+| Complete Packages | `complete-packages` | 7 | Main product collection |
+| Card Games | `card-games` | 3 | Personalized card games |
+| Featured Boards | `featured-boards` | 7 | Showcase collection |
+| Custom Boards | `custom-boards` | 7 | Individual boards |
+| Game Pieces | `game-pieces` | 4 | Game components |
+| Custom Boxes | `custom-boxes` | 2 | Box options |
+| Play Money | `play-money` | 3 | Hidden - internal |
+| Custom Money | `custom-money` | 3 | Hidden - internal |
+
+### Pages
+
+| Page | Handle | Purpose |
+|------|--------|---------|
+| About Us | `about-us` | Business intro - NY-based illustrator |
+| How it Works | `how-it-works` | Order process |
+| Gallery of Games | `gallery-of-games` | Product showcase |
+| Corporate Orders | `corporate-orders` | B2B sales |
+| Design Style Options | `design-style-options` | Style variations |
+| Box Style | `box-style` | Box customization |
+| Original Style Vs. New Style | `original-style-vs-new-style` | Style comparison |
+| Testimonials & Reviews | `testimonials-reviews` | Customer feedback |
+| FAQ | `faq` | Common questions |
+| Contact | `contact` | Contact info/form |
+| Inspiration | `inspiration` | Design ideas |
+| Image Gallery | `image-gallery` | Photo gallery |
+| Forms | `forms` | Custom order forms |
 
 ### Product Tiers (from PageFly homepage)
 | Package | Price | Description |

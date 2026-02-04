@@ -58,7 +58,7 @@
               "type": "text",
               "name": "Heading",
               "settings": {
-                "text": "<h2>Join our email list</h2>",
+                "text": "<h2>Subscribe to our emails</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,7 +84,7 @@
               "type": "text",
               "name": "Text",
               "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
+                "text": "<p>Get exclusive offers and new product announcements.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -105,11 +105,38 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "text_contact": {
+              "type": "text",
+              "name": "Contact",
+              "settings": {
+                "text": "<p>Questions? Call or text us at <strong>516-987-8704</strong></p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 16,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "text_pF6rVi",
-            "text_HafH7P"
+            "text_HafH7P",
+            "text_contact"
           ]
         },
         "email-signup_HafH7P": {
@@ -162,11 +189,11 @@
         "social_icons": {
           "type": "social-links",
           "settings": {
-            "facebook_url": "https://www.facebook.com",
-            "instagram_url": "https://www.instagram.com",
-            "tiktok_url": "https://www.tiktok.com",
-            "twitter_url": "https://www.twitter.com",
-            "youtube_url": "https://www.youtube.com"
+            "facebook_url": "https://facebook.com/danikatesdesigns",
+            "instagram_url": "https://instagram.com/danikatesdesigns",
+            "tiktok_url": "",
+            "twitter_url": "",
+            "youtube_url": ""
           }
         }
       },

@@ -6,8 +6,7 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
- {
+ */{
   "sections": {
     "hero_main": {
       "type": "hero",
@@ -89,7 +88,10 @@
       "settings": {
         "media_type_1": "image",
         "media_type_2": "image",
-        "link": "",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
         "open_in_new_tab": false,
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -128,7 +130,7 @@
             "align_baseline": true,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
-            "gap": 8,
+            "gap": 12,
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
@@ -145,20 +147,20 @@
             "border_opacity": 100,
             "border_radius": 0,
             "padding-block-start": 0,
-            "padding-block-end": 28,
+            "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "packages_title": {
+            "product_list_text_title": {
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h2>Complete Game Packages</h2>",
+                "text": "<h3>{{ closest.collection.title }}</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h3",
+                "type_preset": "h4",
                 "font": "var(--font-body--family)",
                 "font_size": "",
                 "line_height": "normal",
@@ -176,7 +178,7 @@
               },
               "blocks": {}
             },
-            "packages_button": {
+            "product_list_button_viewall": {
               "type": "_product-list-button",
               "name": "t:names.product_list_button",
               "settings": {
@@ -192,8 +194,8 @@
             }
           },
           "block_order": [
-            "packages_title",
-            "packages_button"
+            "product_list_text_title",
+            "product_list_button_viewall"
           ]
         },
         "static-product-card": {
@@ -201,7 +203,7 @@
           "name": "t:names.product_card",
           "static": true,
           "settings": {
-            "product_card_gap": 8,
+            "product_card_gap": 4,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "border": "none",
@@ -209,12 +211,12 @@
             "border_opacity": 100,
             "border_radius": 0,
             "padding-block-start": 0,
-            "padding-block-end": 8,
+            "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "product_card_gallery": {
+            "product_card_gallery_main": {
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
               "settings": {
@@ -230,7 +232,7 @@
               },
               "blocks": {}
             },
-            "product_title": {
+            "product_title_main": {
               "type": "product-title",
               "name": "t:names.product_title",
               "settings": {
@@ -255,7 +257,7 @@
               },
               "blocks": {}
             },
-            "price": {
+            "price_main": {
               "type": "price",
               "name": "t:names.product_price",
               "settings": {
@@ -280,13 +282,13 @@
             }
           },
           "block_order": [
-            "product_card_gallery",
-            "product_title",
-            "price"
+            "product_card_gallery_main",
+            "product_title_main",
+            "price_main"
           ]
         }
       },
-      "name": "t:names.featured_collection",
+      "name": "Featured collection",
       "settings": {
         "collection": "complete-packages",
         "layout_type": "grid",

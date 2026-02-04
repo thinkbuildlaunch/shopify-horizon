@@ -5,8 +5,6 @@
 # Usage: ./scripts/validate-doc-paths.sh
 # Exit codes: 0 = all paths valid, 1 = invalid paths found
 
-set -e
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 DOCS_DIR="$PROJECT_ROOT/docs"
@@ -17,13 +15,30 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+# Temp files for tracking counts across subshells
+INVALID_FILE=$(mktemp)
+VALID_FILE=$(mktemp)
+CHECKED_FILE=$(mktemp)
+
+# Initialize counters
+echo "0" > "$INVALID_FILE"
+echo "0" > "$VALID_FILE"
+echo "0" > "$CHECKED_FILE"
+
+# Cleanup on exit
+trap "rm -f '$INVALID_FILE' '$VALID_FILE' '$CHECKED_FILE'" EXIT
+
 echo "Validating documentation file references..."
 echo "Project root: $PROJECT_ROOT"
 echo ""
 
-invalid_count=0
-valid_count=0
-checked_count=0
+# Function to increment a counter file
+increment_counter() {
+    local file="$1"
+    local count
+    count=$(cat "$file")
+    echo $((count + 1)) > "$file"
+}
 
 # Function to check if a path exists
 check_path() {
@@ -46,6 +61,11 @@ check_path() {
         return 0
     fi
 
+    # Skip mailto links
+    if [[ "$ref_path" =~ ^mailto: ]]; then
+        return 0
+    fi
+
     # Remove anchor from path
     local clean_path="${ref_path%%#*}"
 
@@ -55,7 +75,8 @@ check_path() {
     fi
 
     # Determine base directory for relative paths
-    local base_dir="$(dirname "$doc_file")"
+    local base_dir
+    base_dir="$(dirname "$doc_file")"
     local full_path=""
 
     if [[ "$clean_path" =~ ^/ ]]; then
@@ -63,65 +84,71 @@ check_path() {
         full_path="$PROJECT_ROOT$clean_path"
     elif [[ "$clean_path" =~ ^\.\. ]]; then
         # Relative path with ..
-        full_path="$(cd "$base_dir" && cd "$(dirname "$clean_path")" 2>/dev/null && pwd)/$(basename "$clean_path")" 2>/dev/null || full_path=""
+        # Resolve the path safely
+        if cd "$base_dir" 2>/dev/null; then
+            local target_dir
+            target_dir="$(dirname "$clean_path")"
+            if cd "$target_dir" 2>/dev/null; then
+                full_path="$(pwd)/$(basename "$clean_path")"
+            fi
+            cd "$PROJECT_ROOT" 2>/dev/null || true
+        fi
     else
         # Simple relative path
         full_path="$base_dir/$clean_path"
     fi
 
-    ((checked_count++))
+    increment_counter "$CHECKED_FILE"
 
     if [[ -n "$full_path" ]] && [[ -e "$full_path" ]]; then
-        ((valid_count++))
+        increment_counter "$VALID_FILE"
         return 0
     else
         echo -e "${RED}INVALID${NC}: $doc_file:$line_num"
         echo "  Referenced: $ref_path"
-        echo "  Resolved to: $full_path"
+        echo "  Resolved to: ${full_path:-<could not resolve>}"
         echo ""
-        ((invalid_count++))
+        increment_counter "$INVALID_FILE"
         return 1
     fi
 }
 
-# Find all markdown files in docs
-find "$DOCS_DIR" -name "*.md" -type f | while read -r doc_file; do
+# Process a single markdown file
+process_markdown_file() {
+    local doc_file="$1"
+
     # Extract markdown links: [text](path)
-    grep -n '\[.*\](.*' "$doc_file" 2>/dev/null | while read -r line; do
+    while IFS= read -r line; do
         line_num=$(echo "$line" | cut -d: -f1)
 
         # Extract paths from markdown links
-        echo "$line" | grep -oE '\]\([^)]+\)' | sed 's/\](\(.*\))/\1/' | while read -r ref_path; do
+        echo "$line" | grep -oE '\]\([^)]+\)' | sed 's/\](\(.*\))/\1/' | while IFS= read -r ref_path; do
+            # Skip empty paths
+            [[ -z "$ref_path" ]] && continue
             check_path "$doc_file" "$ref_path" "$line_num" || true
         done
-    done
+    done < <(grep -n '\[.*\](.*)' "$doc_file" 2>/dev/null || true)
+}
 
-    # Extract backtick file paths that look like file references
-    grep -n '`[a-zA-Z][a-zA-Z0-9_/-]*\.[a-z]*`' "$doc_file" 2>/dev/null | while read -r line; do
-        line_num=$(echo "$line" | cut -d: -f1)
-
-        echo "$line" | grep -oE '`[a-zA-Z][a-zA-Z0-9_/-]*\.[a-z]+`' | tr -d '`' | while read -r ref_path; do
-            # Only check if it looks like a real file path (has extension and directory structure)
-            if [[ "$ref_path" =~ / ]] && [[ -n "${ref_path##*.}" ]]; then
-                # Try to find the file from project root
-                if [[ -e "$PROJECT_ROOT/$ref_path" ]]; then
-                    ((valid_count++))
-                fi
-            fi
-        done
-    done
-done
+# Find and process all markdown files in docs
+while IFS= read -r -d '' doc_file; do
+    process_markdown_file "$doc_file"
+done < <(find "$DOCS_DIR" -name "*.md" -type f -print0 2>/dev/null)
 
 # Also check PRODUCT_OVERVIEW.md in root
 if [[ -f "$PROJECT_ROOT/PRODUCT_OVERVIEW.md" ]]; then
-    doc_file="$PROJECT_ROOT/PRODUCT_OVERVIEW.md"
-    grep -n '\[.*\](.*' "$doc_file" 2>/dev/null | while read -r line; do
-        line_num=$(echo "$line" | cut -d: -f1)
-        echo "$line" | grep -oE '\]\([^)]+\)' | sed 's/\](\(.*\))/\1/' | while read -r ref_path; do
-            check_path "$doc_file" "$ref_path" "$line_num" || true
-        done
-    done
+    process_markdown_file "$PROJECT_ROOT/PRODUCT_OVERVIEW.md"
 fi
+
+# Also check README.md in root
+if [[ -f "$PROJECT_ROOT/README.md" ]]; then
+    process_markdown_file "$PROJECT_ROOT/README.md"
+fi
+
+# Read final counts
+invalid_count=$(cat "$INVALID_FILE")
+valid_count=$(cat "$VALID_FILE")
+checked_count=$(cat "$CHECKED_FILE")
 
 echo "----------------------------------------"
 echo "Validation complete"

@@ -5,8 +5,6 @@
 # Usage: ./scripts/validate-glossary.sh
 # Exit codes: 0 = all terms used, 1 = unused terms found (warning only)
 
-set -e
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 GLOSSARY_FILE="$PROJECT_ROOT/docs/DOMAIN_GLOSSARY.md"
@@ -84,10 +82,10 @@ for term in "${terms[@]}"; do
 
     if $found; then
         echo -e "${GREEN}✓${NC} $term"
-        ((used_count++))
+        used_count=$((used_count + 1))
     else
         echo -e "${YELLOW}?${NC} $term (not found in code - may be platform term)"
-        ((unused_count++))
+        unused_count=$((unused_count + 1))
     fi
 done
 

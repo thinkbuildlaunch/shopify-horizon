@@ -1,0 +1,129 @@
+# Documentation Health Workflow
+# Validates documentation integrity on every push and PR
+#
+# Checks performed:
+# 1. File path references in docs exist
+# 2. Documentation size/count limits
+# 3. Glossary term usage (informational only)
+
+name: Documentation Health
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+      - 'PRODUCT_OVERVIEW.md'
+      - 'README.md'
+      - 'scripts/validate-*.sh'
+      - 'scripts/check-*.sh'
+      - '.github/workflows/docs-health.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'PRODUCT_OVERVIEW.md'
+      - 'README.md'
+      - 'scripts/validate-*.sh'
+      - 'scripts/check-*.sh'
+      - '.github/workflows/docs-health.yml'
+
+jobs:
+  validate-docs:
+    name: Validate Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: chmod +x scripts/*.sh
+
+      - name: Validate file path references
+        id: paths
+        run: |
+          echo "## File Path Validation" >> $GITHUB_STEP_SUMMARY
+          if ./scripts/validate-doc-paths.sh; then
+            echo "✅ All file references are valid" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Invalid file references found" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Check documentation limits
+        id: limits
+        run: |
+          echo "## Documentation Limits" >> $GITHUB_STEP_SUMMARY
+          if ./scripts/check-doc-limits.sh; then
+            echo "✅ Documentation is within all limits" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Documentation limits exceeded" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Validate glossary usage
+        id: glossary
+        continue-on-error: true
+        run: |
+          echo "## Glossary Validation" >> $GITHUB_STEP_SUMMARY
+          ./scripts/validate-glossary.sh >> $GITHUB_STEP_SUMMARY 2>&1 || true
+          echo "ℹ️ Glossary validation completed (informational)" >> $GITHUB_STEP_SUMMARY
+
+  # Optional: Generate health report on schedule
+  generate-report:
+    name: Generate Health Report
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: chmod +x scripts/*.sh
+
+      - name: Generate health metrics
+        run: |
+          echo "# Documentation Health Report" > health-report.md
+          echo "" >> health-report.md
+          echo "**Generated:** $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> health-report.md
+          echo "" >> health-report.md
+
+          echo "## Size Metrics" >> health-report.md
+          echo "" >> health-report.md
+
+          # Count documents
+          doc_count=$(find docs -name "*.md" -type f | wc -l)
+          adr_count=$(find docs/adr -name "ADR_*.md" -type f 2>/dev/null | wc -l || echo 0)
+          directive_count=$(find docs/directives -name "DIRECTIVE_*.md" -type f 2>/dev/null | wc -l || echo 0)
+
+          echo "| Metric | Value | Limit | Status |" >> health-report.md
+          echo "|--------|-------|-------|--------|" >> health-report.md
+          echo "| Total docs | $doc_count | 40 | $([ $doc_count -le 40 ] && echo '✅' || echo '❌') |" >> health-report.md
+          echo "| ADRs | $adr_count | 30 | $([ $adr_count -le 30 ] && echo '✅' || echo '❌') |" >> health-report.md
+          echo "| Directives | $directive_count | 20 | $([ $directive_count -le 20 ] && echo '✅' || echo '❌') |" >> health-report.md
+
+          echo "" >> health-report.md
+          echo "## Validation Results" >> health-report.md
+          echo "" >> health-report.md
+
+          # Run validations
+          if ./scripts/validate-doc-paths.sh > /dev/null 2>&1; then
+            echo "- ✅ File path references: Valid" >> health-report.md
+          else
+            echo "- ❌ File path references: Invalid references found" >> health-report.md
+          fi
+
+          if ./scripts/check-doc-limits.sh > /dev/null 2>&1; then
+            echo "- ✅ Documentation limits: Within bounds" >> health-report.md
+          else
+            echo "- ❌ Documentation limits: Exceeded" >> health-report.md
+          fi
+
+          cat health-report.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload health report
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-health-report
+          path: health-report.md
+          retention-days: 30

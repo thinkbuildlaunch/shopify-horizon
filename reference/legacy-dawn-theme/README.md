@@ -16,8 +16,18 @@
 - Instagram: [instagram.com/danikatesdesigns](https://instagram.com/danikatesdesigns)
 
 ### Key Collections
-- Complete Game Package (Standard)
-- (Additional collections to be identified from store data)
+- Complete Game Package (Standard) - Main product collection
+
+### Product Tiers (from PageFly homepage)
+| Package | Price | Description |
+|---------|-------|-------------|
+| Classic Package | $225 | Entry-level option |
+| Photo Package | $275 | Includes photo customization |
+| Cartoon Portrait | $350 | Premium with cartoon-style portraits |
+
+### Card Games Section
+- Additional card game products available
+- Separate category from main board games
 
 ## Theme Configuration
 
@@ -101,6 +111,7 @@ The homepage has these sections (most disabled):
    - Heading: "Customopoly Board Games"
    - Subtext: "The most unique personalized gift"
    - CTA: "Shop Now" → Complete Game Package collection
+   - Image: `new_banner_2.jpg`
 
 2. **Rich Text** (disabled)
 3. **Featured Collection** (disabled)
@@ -108,6 +119,44 @@ The homepage has these sections (most disabled):
 5. **Video** (disabled)
 6. **Multicolumn** (disabled)
 7. **PageFly Home** (active) - Main content
+
+### PageFly Homepage Content (Extracted)
+
+The PageFly section contains all the actual homepage content:
+
+#### Hero Section
+- Large product/lifestyle image banner
+- Heading: "Custom Designed Board Games"
+- CTA buttons linking to products
+
+#### Value Propositions (3 columns)
+1. "100% Customizable" - emphasizing personalization
+2. "Quality Materials" - product quality
+3. "Great Gift Idea" - use case positioning
+
+#### Product Showcase
+Three main product cards featuring the pricing tiers:
+- Photo Package ($275)
+- Cartoon Portrait ($350)
+- Classic Package ($225)
+
+#### Featured Packages Grid
+Grid layout showcasing different package options
+
+#### Card Games Section
+Separate section for card game products
+
+#### "How It Works" (4 steps)
+1. Choose your game style
+2. Upload your photos/content
+3. Review your design
+4. Receive your custom game
+
+#### Customer Testimonials
+Slider featuring customer reviews:
+- Lauren - positive experience
+- Katherine - gift recipient feedback
+- Deborah - quality testimonial
 
 ## Header Configuration
 
@@ -132,6 +181,50 @@ The homepage has these sections (most disabled):
 
 - Text: "We Ship Worldwide!"
 - Color scheme: Inverse (dark background)
+- Text alignment: Center
+
+## Product Page Configuration
+
+| Setting | Value |
+|---------|-------|
+| Media position | Left |
+| Gallery layout | Stacked |
+| Media size | Large |
+| Sticky product info | Enabled |
+| Variant picker | Button style |
+| Hide variants | Enabled |
+| Dynamic checkout | Enabled |
+| Product recommendations | 4 products, square ratio |
+
+### Collapsible Tabs (all disabled)
+- Materials
+- Shipping & Returns
+- Dimensions
+- Care Instructions
+
+### Apps on Product Page
+- Judge.me Reviews widget (2 instances)
+
+## Collection Page Configuration
+
+| Setting | Value |
+|---------|-------|
+| Products per page | 16 |
+| Desktop columns | 4 |
+| Mobile columns | 2 |
+| Image ratio | Adapt to image |
+| Filtering | Enabled (horizontal) |
+| Sorting | Enabled |
+| Show description | Enabled |
+| Show collection image | Disabled |
+| Quick add | Disabled |
+| Secondary image | Disabled |
+
+## Cart Page Configuration
+
+- Cart type: Notification (slide-out)
+- Shows featured collection on cart page
+- 4 recommended products displayed
 
 ## Migration Considerations
 

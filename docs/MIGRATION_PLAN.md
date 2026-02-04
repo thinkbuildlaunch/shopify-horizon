@@ -44,32 +44,72 @@ Dani Kate Designs sells personalized "Customopoly" board games - custom Monopoly
 - Facebook: `https://facebook.com/danikatesdesigns`
 - Instagram: `http://instagram.com/danikatesdesigns`
 
+### Layout Settings to Preserve
+
+| Setting | Dawn Value | Notes |
+|---------|------------|-------|
+| Page width | 1200px | Standard width |
+| Section spacing | 0 | No gaps between sections |
+| Grid horizontal | 8px | Tight grid spacing |
+| Grid vertical | 8px | Tight grid spacing |
+| Button radius | 2px | Nearly square buttons |
+| Card style | Standard | No card shadows |
+| Badge position | Bottom left | Product badges |
+
+### Logo & Branding
+
+- Logo file: `Dani_Kates_designs_final_logo_new-01.png`
+- Logo width: 90px
+- Also used as favicon and checkout logo
+
 ## Page-by-Page Migration
 
 ### Homepage
 
 **Current (Dawn + PageFly):**
-- PageFly custom layout (content in PageFly, not theme)
-- Disabled banner with "Customopoly Board Games" heading
+- PageFly custom layout with embedded content
+- Disabled Dawn banner with "Customopoly Board Games" heading
+- Banner image: `new_banner_2.jpg`
+
+**PageFly Content to Recreate:**
+1. Hero banner with product imagery
+2. Value propositions (3 columns): Customizable, Quality, Great Gift
+3. Product showcase (3 tiers: Classic $225, Photo $275, Cartoon $350)
+4. Featured packages grid
+5. Card games section
+6. How It Works (4 steps)
+7. Customer testimonials (Lauren, Katherine, Deborah)
 
 **Target (Horizon):**
-1. **Hero section** - Main banner with product imagery
-   - Heading: "Customopoly Board Games"
+1. **Hero section** (`image-banner` or `slideshow`)
+   - Heading: "Custom Designed Board Games" or "Customopoly Board Games"
    - Subtext: "The most unique personalized gift"
-   - CTA: Shop Now → Collections
+   - CTA: Shop Now → Complete Game Package collection
+   - Large product/lifestyle imagery
 
-2. **Featured Collection** - Product showcase
+2. **Value Propositions** (`multicolumn` section)
+   - Column 1: "100% Customizable"
+   - Column 2: "Quality Materials"
+   - Column 3: "Great Gift Idea"
+
+3. **Featured Collection** (`featured-collection`)
    - Collection: Complete Game Package
-   - Grid or carousel layout
+   - Show 3-4 products with pricing
+   - Grid layout
 
-3. **How It Works** (multicolumn or custom section)
-   - Step 1: Customize
-   - Step 2: Order
-   - Step 3: Receive
+4. **How It Works** (`multicolumn` or `rich-text`)
+   - Step 1: Choose your game style
+   - Step 2: Upload your photos/content
+   - Step 3: Review your design
+   - Step 4: Receive your custom game
 
-4. **Testimonials/Reviews** - Judge.me integration
+5. **Card Games** (`featured-collection`)
+   - Separate collection for card game products
 
-5. **Newsletter signup** - Email capture
+6. **Testimonials** (`multicolumn` or Judge.me widget)
+   - Customer quotes (Lauren, Katherine, Deborah)
+
+7. **Newsletter signup** (`newsletter`)
 
 ### Header
 
@@ -93,19 +133,45 @@ Dani Kate Designs sells personalized "Customopoly" board games - custom Monopoly
 
 ### Product Page
 
+**Current Dawn Configuration:**
+| Setting | Value |
+|---------|-------|
+| Media position | Left |
+| Gallery layout | Stacked |
+| Media size | Large |
+| Sticky product info | Enabled |
+| Variant picker | Button style |
+| Dynamic checkout | Enabled |
+| Product recommendations | 4 products |
+
 **Migration tasks:**
-1. Map product form elements
-2. Configure media gallery
-3. Set up variant picker (Horizon uses swatch/button system)
-4. Enable product recommendations
-5. Integrate Judge.me reviews (app reinstall required)
+1. Map product form elements to Horizon's product block system
+2. Configure media gallery (stacked layout, left position)
+3. Set up variant picker (button style to match)
+4. Enable sticky product info
+5. Enable product recommendations (4 products, square ratio)
+6. Integrate Judge.me reviews (app reinstall required)
+7. Note: Collapsible tabs were disabled in Dawn - evaluate for Horizon
 
 ### Collection Page
 
+**Current Dawn Configuration:**
+| Setting | Value |
+|---------|-------|
+| Products per page | 16 |
+| Desktop columns | 4 |
+| Mobile columns | 2 |
+| Image ratio | Adapt |
+| Filtering | Horizontal |
+| Sorting | Enabled |
+
 **Migration tasks:**
-1. Configure filtering (facets)
-2. Set grid layout
-3. Enable quick-add if desired
+1. Configure filtering (horizontal facets)
+2. Set grid layout (4 columns desktop, 2 mobile)
+3. Products per page: 16
+4. Image ratio: Adapt to image
+5. Enable sorting
+6. Evaluate quick-add (was disabled)
 
 ## App Reinstallation
 

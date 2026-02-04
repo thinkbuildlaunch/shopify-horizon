@@ -10,24 +10,31 @@ shopify-horizon/
 ├── README.md                        ← Installation and quick start
 ├── release-notes.md                 ← Version history and changes
 │
-└── docs/
-    ├── DOCUMENTATION_INDEX.md       ← You are here
-    ├── PLATFORM_CONVENTIONS.md      ← How this follows Shopify patterns
-    ├── DOMAIN_GLOSSARY.md           ← Terminology definitions
-    ├── RETRIEVAL_DIRECTIVE.md       ← AI agent navigation protocol
-    │
-    ├── adr/                         ← Architecture Decision Records
-    │   ├── ADR_001_web_components_over_frameworks.md
-    │   ├── ADR_002_css_variables_over_preprocessors.md
-    │   ├── ADR_003_server_rendered_progressive_enhancement.md
-    │   └── ADR_004_event_driven_component_communication.md
-    │
-    └── directives/                  ← How-to guides
-        ├── DIRECTIVE_adding_section.md
-        ├── DIRECTIVE_adding_block.md
-        ├── DIRECTIVE_adding_component.md
-        ├── DIRECTIVE_modifying_styles.md
-        └── DIRECTIVE_adding_translations.md
+├── docs/
+│   ├── DOCUMENTATION_INDEX.md       ← You are here
+│   ├── PLATFORM_CONVENTIONS.md      ← How this follows Shopify patterns
+│   ├── DOMAIN_GLOSSARY.md           ← Terminology definitions
+│   ├── RETRIEVAL_DIRECTIVE.md       ← AI agent navigation protocol
+│   ├── MIGRATION_PLAN.md            ← Dawn → Horizon migration plan
+│   │
+│   ├── adr/                         ← Architecture Decision Records
+│   │   ├── ADR_001_web_components_over_frameworks.md
+│   │   ├── ADR_002_css_variables_over_preprocessors.md
+│   │   ├── ADR_003_server_rendered_progressive_enhancement.md
+│   │   └── ADR_004_event_driven_component_communication.md
+│   │
+│   └── directives/                  ← How-to guides
+│       ├── DIRECTIVE_adding_section.md
+│       ├── DIRECTIVE_adding_block.md
+│       ├── DIRECTIVE_adding_component.md
+│       ├── DIRECTIVE_modifying_styles.md
+│       └── DIRECTIVE_adding_translations.md
+│
+└── reference/
+    └── legacy-dawn-theme/           ← Original Dani Kate Designs theme
+        ├── README.md                ← Legacy theme documentation
+        ├── config/settings_data.json ← Brand settings to migrate
+        └── [Dawn 7.x theme files]
 ```
 
 ## Quick Reference by Question Type
@@ -80,6 +87,15 @@ shopify-horizon/
 | Why CSS variables? | [ADR_002](adr/ADR_002_css_variables_over_preprocessors.md) |
 | Why server-rendered? | [ADR_003](adr/ADR_003_server_rendered_progressive_enhancement.md) |
 | Why custom events? | [ADR_004](adr/ADR_004_event_driven_component_communication.md) |
+
+### Migration (Dani Kate Designs)
+
+| Question | Document |
+|----------|----------|
+| Migration overview | [MIGRATION_PLAN.md](MIGRATION_PLAN.md) |
+| Legacy theme colors/settings | [reference/legacy-dawn-theme/README.md](../reference/legacy-dawn-theme/README.md) |
+| Original homepage structure | [reference/legacy-dawn-theme/templates/index.json](../reference/legacy-dawn-theme/templates/index.json) |
+| Original theme settings | [reference/legacy-dawn-theme/config/settings_data.json](../reference/legacy-dawn-theme/config/settings_data.json) |
 
 ## Document Layers
 
